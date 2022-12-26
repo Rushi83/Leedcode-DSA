@@ -1,0 +1,48 @@
+//  724. Find Pivot Index
+//Method 1
+class Solution {
+    public int pivotIndex(int[] nums) {
+        int ls[] = new int[nums.length];
+        int rs[] = new int[nums.length];
+
+        ls[0]=nums[0];
+        for(int i=1; i<nums.length; i++){
+            ls[i]=nums[i]+ls[i-1];
+        }
+
+        rs[nums.length-1]=nums[nums.length-1];
+        for(int i=nums.length-2; i>=0; i--){
+            rs[i]=nums[i]+rs[i+1];
+        }
+
+        for(int i=0; i<nums.length; i++){
+            if(ls[i]==rs[i]){
+                return i;
+            }
+        }
+
+        return -1;
+    }
+}
+
+
+//Method 2
+class Solution {
+    public int pivotIndex(int[] nums) {
+        int presum=0;
+        for(int i=0; i<nums.length; i++){
+            presum+=nums[i];
+        }
+
+        int rs=presum;
+        int ls=0;
+        for(int i=0; i<nums.length; i++){
+            ls+=nums[i];
+            if(ls==rs){
+                return i;
+            }
+            rs-=nums[i];
+        }
+        return -1;
+    }
+}
