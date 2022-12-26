@@ -1,0 +1,32 @@
+//122. Best Time to Buy and Sell Stock II
+
+//Method 1
+class Solution {
+    public int maxProfit(int[] prices) {
+        int tp=0;
+        int bp=Integer.MAX_VALUE;
+        for(int i=0; i<prices.length; i++){
+            if(bp<prices[i]){  //profit
+                tp+=prices[i]-bp;
+                bp=prices[i];
+            }else{
+                bp=prices[i];
+            }
+        }
+        return tp;
+    }
+}
+
+
+//Method 2
+class Solution {
+    public int maxProfit(int[] prices) {
+        int tp=0;
+        for(int i=1; i<prices.length; i++){
+            if(prices[i-1]<prices[i]){
+                tp+=prices[i]-prices[i-1];
+            }
+        }
+        return tp;
+    }
+}
